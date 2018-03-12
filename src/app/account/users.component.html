@@ -1,0 +1,42 @@
+
+<div class="animated fadeIn">
+  <div class="row-fluid">
+<!-- //////////////////////////////////// -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-user"></i>
+        <strong class="h5">Users</strong>
+      </div>
+      <div class="card-block">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Company name</th>
+              <th>Username</th>
+              <th>Email Address</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{user.company.name}}</td>
+              <td>{{user.username}}</td>
+              <td>{{user.email}}</td>
+              <td>
+                <span class="badge badge-success">Active</span>
+              </td>
+              <td>
+              <button class="btn btn-primary btn-sm" title="Edit" data-toggle="modal" data-target="#edit" (click)="c.show(user);"><span class="fa fa-pencil"></span></button>
+              <button class="btn btn-danger btn-sm" title="Disable" data-toggle="modal" data-target="#delete"  (click)="c.showd(user)"><span class="fa fa-ban"></span></button>
+              </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- ///////////////////////////////// -->
+    </div><!--/.row-->
+</div>
+
+    <user-detail [user]="selectedUser" #c="child"></user-detail>

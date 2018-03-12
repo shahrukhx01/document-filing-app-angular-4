@@ -1,0 +1,28 @@
+.breadcrumb {
+  position: relative;
+ padding: 0px;
+  background: #0d6492;
+  height: 45px;
+  @include borders($breadcrumb-borders);
+}
+.bread-text {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: inherit;
+  font-weight: bold;
+  color: #fff;
+  font-size: 13px;
+}
+
+.nav-link-bread{
+  background: #063c69;
+  width: 270px;
+  margin: 0px;
+  height: 44px;
+  padding-left: 10px;
+  list-style-type: none;
+}
+.container{
+  margin-bottom: 5%;
+
+}

@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+  <div class="row-fluid">
+<!-- //////////////////////////////////// -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i><strong class="h5">Account Information</strong>
+      </div>
+      <div class="card-block">
+        <form #frm="ngForm" novalidate>
+          <div class="col-lg-8">
+            <!-- <div class="card-header"></div>
+            <div class="card-block"> -->
+
+                <div class="form-group row">
+                  <label class="col-md-4 form-control-label">Email</label>
+                  <div class="col-md-8">
+                    <input type="email" id="emailAddress" name="emailAddress"   class="form-control" placeholder="Email Address">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-4 form-control-label">New Password</label>
+                  <div class="col-md-8">
+                    <input type="text" id="password" name="password"  class="form-control" placeholder="Password..">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-4 form-control-label">Confirm Password</label>
+                  <div class="col-md-8">
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm Password..">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-md-4 form-control-label"></label>
+                  <div class="col-md-8">
+                    <button type="submit" class="btn btn-primary" (click)="saveUser(frm);">Save changes</button>
+                  </div>
+                </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- ///////////////////////////////// -->
+    </div><!--/.row-->
+</div>
+<!-- <button class="btn btn-primary btn-sm" title="Edit" data-toggle="modal" data-target="#edit" (click)="c.show(users[1]);"><span class="fa fa-pencil"></span></button>
+
+   <user-detail [user]="selectedUser" #c="child"></user-detail> -->

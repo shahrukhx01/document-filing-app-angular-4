@@ -1,0 +1,1148 @@
+<div class="row" class="title-row">
+  <div id="header-info-title" class="offset-md-1 col-5">
+    <h1 style="margin-bottom: 1.5rem;border-bottom: 1px solid;font-size: 2.1rem;">{{pageHeadings[page].heading1}}</h1>
+    <div class="col-4"> <img alt="" src="src/img/step2.png"></div>
+  </div>
+</div>
+<div class="container">
+  <div class="col-12">
+    <p class="mrgB10" style="font-size: 11px; line-height: 18px;">
+      <span style="color: #1d8de4; margin-left: -10px">●</span>	Please double check to make sure that all information provided below is accurate and complete in all respects. Easy Doc Filing, does not independently review or verify the accuracy of any of the information that you provide. Any inaccuracies may result in delays or errors in obtaining your Employer Identification Number.<br>
+      <span style="color: #1d8de4; margin-left: -10px">●</span>	All information provided is private and secure on this website<br>
+      <span style="color: #1d8de4; margin-left: -10px">●</span>	We are a service, here to help! 24/7 email service at info@govdocfiling.com
+
+    </p>
+    <hr style="background-color:#d9d9d9; ">
+  </div>
+
+  <form  name="form" (ngSubmit)="f.form.valid && saveDocument()" #f="ngForm" novalidate name="details-form" >
+  <div class="row">
+    <div class="container" *ngIf="page == 'LIMITED_LIABILITY_COMPANY'" style="margin-bottom: 0.2%;">
+      <div class="row">
+      <div class="col-12">
+
+        <div class="inner-title" >
+          LLC INFORMATION
+          <span class="gray mrgR10 fright font12 offset-col-8"></span>
+        </div>
+
+      </div>
+      <div class="container">
+        <div class="row">
+
+          <div class="form-group col-6">
+            <label for="llcName"><span>LLC Name: <b class="red">●</b></span></label>
+            <input #llcName="ngModel" type="text" name="receiptNameEIN" class="form-control" [(ngModel)]="llcInformation.llcName" id ="llcName"  required>
+            <div  *ngIf="f.submitted && !llcName.valid"  style="color: red;">LLC Name is required</div>
+          </div>
+          <div  class="form-group col-6">
+            <label for="trade-name"><span>Trade Name / Doing Business As: <b *ngIf="page=='PARTNERSHIP'" class="red">●</b> </span></label>
+            <input [(ngModel)]="llcInformation.tradeName" name="tradeName" type="text" type="text" class="form-control" id="trade-name" [required]="page=='PARTNERSHIP'" >
+          </div>
+          <div  class="form-group col-6">
+            <label for="llcMembers"><span>Number of LLC Members: <b class="red">●</b></span></label>
+            <select #llcMembers="ngModel" [(ngModel)]="llcInformation.llcMembers" name="suffix" class="form-control"  id="llcMembers" name="llcMembers" required>
+              <option value="Please Select">Please Select</option>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+              <option>11</option>
+              <option>12</option>
+              <option>13</option>
+              <option>14</option>
+              <option>15</option>
+              <option>16</option>
+              <option>17</option>
+              <option>18</option>
+              <option>19</option>
+              <option>20</option>
+            </select>
+            <div  *ngIf="f.submitted && !llcMembers.valid"  style="color: red;">LLC Members is required</div>
+          </div>
+          <div  class="form-group col-6">
+            <label for="multiMember"><span>LLC Taxation Classification (If Multi-Member): <b class="red">●</b></span></label>
+            <select [disabled]="llcInformation.llcMemebers == 1 || llcInformation.llcMemebers=='Please Select'"  type="text" name="receipientPhoneEIN"  class="form-control" id="multiMember"  required>
+              <option value="1">Partnership</option>
+              <option value="2">Association taxable as a Corporation (Form 8832 Required)</option>
+              <option value="3">S-Corporation (Form 2553 Required)</option>
+            </select>
+
+          </div>
+          <div *ngIf="llcInformation.llcMemebers == 2" class="form-group col-12">
+            <label ><span>Are the members husband and wife?</span></label>
+            <br>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="llcInformation.husbandWife" class="form-check-input" type="radio" name="husbandWife" [value]="true"> &nbsp;Yes
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="llcInformation.husbandWife" class="form-check-input" type="radio" name="husbandWife"  [value]="false" [checked]="isChecked"> &nbsp;No
+              </label>
+            </div>
+          </div>
+          <div *ngIf="llcInformation.husbandWife == 'yes'" class="form-group col-12">
+            <label ><span>Do you want to elect to treat the LLC as a multi-member LLC or as a single-member LLC?</span></label>
+            <br>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="llcInformation.multiLLC" class="form-check-input" type="radio" name="multiLLC" [value]="true"> &nbsp;Yes
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input [(ngModel)]="llcInformation.multiLLC" class="form-check-input" type="radio" name="multiLLC"  [value]="false" [checked]="isChecked"> &nbsp;No
+              </label>
+            </div>
+          </div>
+          </div>
+      </div>
+    </div>
+    </div>
+    <div class="col-12">
+
+        <div class="inner-title" >
+          {{pageHeadings[page].heading2}}:
+          <span class="gray mrgR10 fright font12 offset-col-8"><b class="red">●</b> - required fields</span>
+        </div>
+
+    </div>
+
+    <div class="container">
+      <!--<label for="first_name-sole-proprietor" class="col-6 span_1_of_2"><span>First Name: <b class="red">●</b></span> -->
+      <div class="row">
+        <div class="form-group col-6">
+          <label for="first-name"><span>First Name: <b class="red">●</b></span></label>
+          <input #fname="ngModel" [(ngModel)]="personalInformation.firstName" name="fname" type="text" class="form-control" id="first-name" required>
+          <div *ngIf="f.submitted && !fname.valid"  style="color: red;">First name is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="middle-name"><span>Middle Name: </span></label>
+          <input [(ngModel)]="personalInformation.middleName" name="middleName" type="text" class="form-control" id="middle-name"  >
+
+        </div>
+        <div class="form-group col-6">
+          <label for="last-name"><span>Last Name: <b class="red">●</b></span></label>
+          <input #lastName="ngModel" [(ngModel)]="personalInformation.lastName" name="lastName" type="text" class="form-control" id="last-name" required>
+          <div  *ngIf="f.submitted && !lastName.valid"  style="color: red;">Last name is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="suffix"><span>Suffix: </span></label>
+          <select [(ngModel)]="personalInformation.suffix" name="suffix" class="form-control"  id="suffix" name="suffix_id" >
+            <option value="" [selected]="isChecked" >Select One</option>
+            <option value="1">DDS</option>
+            <option value="2">MD</option>
+            <option value="3">PHD</option>
+            <option value="4">JR</option>
+            <option value="5">SR</option>
+            <option value="6">I</option>
+            <option value="7">II</option>
+            <option value="8">III</option>
+            <option value="9">IV</option>
+            <option value="10">V</option>
+            <!-- <option value="11">VI</option> -->
+          </select>
+        </div>
+        <div class="form-group col-6">
+          <label for="ssn"><span>Social Security #: <b class="red">●</b></span></label>
+          <input #socialSecurity="ngModel" [(ngModel)]="personalInformation.socialSecurity" name="socialSecurity" type="text" class="form-control" id="ssn" placeholder="xxx-xx-xxxx" required>
+          <div  *ngIf="f.submitted && !socialSecurity.valid"  style="color: red;">Social security number is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="verify-ssn"><span>Verify Social Security #: <b class="red">●</b></span></label>
+          <input #verifySocialSecurity="ngModel" [(ngModel)]="personalInformation.verifySocialSecurity" name="verifySocialSecurity" type="text" class="form-control" id="verify-ssn" placeholder="xxx-xx-xxxx" required>
+          <div  *ngIf="f.submitted && !verifySocialSecurity.valid"  style="color: red;">Verify social security number is required</div>
+        </div>
+        <div *ngIf="page != 'TRUST' && page!='ESTATE_DECEASED_INDIVIDUAL'" class="form-group col-6">
+          <label for="title"><span>{{pageHeadings[page].title}}: <b class="red">●</b></span></label>
+          <input #title="ngModel" [(ngModel)]="personalInformation.title" name="title" type="text" class="form-control" id="title" required>
+          <div  *ngIf="f.submitted && !title.valid"  style="color: red;">Title is required</div>
+        </div>
+
+      </div>
+    </div>
+
+
+    <div *ngIf="page=='TRUST'" class="col-12">
+
+      <div class="inner-title" style="margin-left: -15px;" >
+        TRUST INFORMATION:
+      </div>
+
+    </div>
+
+    <div *ngIf="page=='TRUST'" class="row" >
+      <!--<label for="first_name-sole-proprietor" class="col-6 span_1_of_2"><span>First Name: <b class="red">●</b></span> -->
+      <div class="container">
+        <div class="row">
+          <div class="form-group col-6">
+            <label for="receiptNameEIN"><span>Legal Entity Name of Trust: <b class="red">●</b></span></label>
+            <input #legalEntityName="ngModel" type="text" name="legalEntityName" class="form-control" [(ngModel)]="trustInformation.legalEntityName" id ="legalEntityName"  required>
+            <div  *ngIf="f.submitted && !legalEntityName.valid"  style="color: red;">Legal Entity Name of Trust is required</div>
+          </div>
+          <div class="form-group col-6">
+            <label for="legalEntityNameContinue"><span>Legal Entity Name of Trust (continue): </span></label>
+            <input  type="text" name="legalEntityNameContinue" class="form-control" [(ngModel)]="trustInformation.legalEntityNameContinue" id ="legalEntityNameContinue"  required>
+          </div>
+          <div class="form-group col-6">
+            <label for="typeOfTrust"><span>Type of Trust: <b class="red">●</b></span></label>
+            <select #typeOfTrust="ngModel" type="text" name="receiptNameEIN" class="form-control" [(ngModel)]="trustInformation.typeOfTrust" id ="typeOfTrust"  required>
+              <option value="" [selected]="true">Please Select</option>
+              <option value="1">Bankruptcy Estate (Individual)</option>
+              <option value="2">Charitable Lead Annuity Trust</option>
+              <option value="3">Charitable Lead Unitrust</option>
+              <option value="4">Charitable Remainder Annuity Trust</option>
+              <option value="5">Charitable Remainder Unitrust</option>
+              <option value="6">Conservatorship</option>
+              <option value="7">Custodianship</option>
+              <option value="8">Escrow</option>
+              <option value="9">FNMA (Fannie Mae)</option>
+              <option value="10">GNMA (Ginnie Mae)</option>
+              <option value="11">Guardianship</option>
+              <option value="12">Irrevocable Trust</option>
+              <option value="13">Pooled Income Fund</option>
+              <option value="14">Qualified Funeral Trust</option>
+              <option value="15">Receivership</option>
+              <option value="16" style="display:none;">Revocable Trust</option>
+              <option value="17">Settlement Fund (under IRC Sec 468B)</option>
+              <option value="18">Trust (All Others)</option>
+            </select>
+            <div  *ngIf="f.submitted && !typeOfTrust.valid"  style="color: red;">Type of Trust is required</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="page=='ESTATE_DECEASED_INDIVIDUAL' || page=='TRUST'" class="col-12" style="padding-left: 0px; padding-right: 0px;">
+
+      <div class="inner-title"  >
+        {{pageHeadings[page].executorInfo}}:
+        <span class="gray mrgR10 fright font12 offset-col-8"></span>
+      </div>
+
+    </div>
+
+    <div *ngIf="page=='ESTATE_DECEASED_INDIVIDUAL' || page=='TRUST'" class="row">
+      <div class="form-group col-6">
+        <label for="erfirst-name"><span>First Name: <b class="red">●</b></span></label>
+        <input #er_fname="ngModel" [(ngModel)]="representativeInformation.firstName" name="fname" type="text" class="form-control" id="erfirst-name" required>
+        <div *ngIf="f.submitted && !er_fname.valid"  style="color: red;">First name is required</div>
+      </div>
+      <div class="form-group col-6">
+        <label for="ermiddle-name"><span>Middle Name: </span></label>
+        <input [(ngModel)]="representativeInformation.middleName" name="middleName" type="text" class="form-control" id="ermiddle-name"  >
+
+      </div>
+      <div class="form-group col-6">
+        <label for="erlast-name"><span>Last Name: <b class="red">●</b></span></label>
+        <input #er_lastName="ngModel" [(ngModel)]="representativeInformation.lastName" name="lastName" type="text" class="form-control" id="erlast-name" required>
+        <div  *ngIf="f.submitted && !er_lastName.valid"  style="color: red;">Last name is required</div>
+      </div>
+      <div class="form-group col-6">
+        <label for="er_suffix"><span>Suffix: </span></label>
+        <select [(ngModel)]="representativeInformation.suffix" name="suffix" class="form-control"  id="er_suffix" name="suffix_id" >
+          <option value="">Select One</option>
+          <option value="1">DDS</option>
+          <option value="2">MD</option>
+          <option value="3">PHD</option>
+          <option value="4">JR</option>
+          <option value="5">SR</option>
+          <option value="6">I</option>
+          <option value="7">II</option>
+          <option value="8">III</option>
+          <option value="9">IV</option>
+          <option value="10">V</option>
+          <!-- <option value="11">VI</option> -->
+        </select>
+      </div>
+      <div  *ngIf="page!='TRUST'" class="form-group col-6">
+        <label for="er_ssn"><span>Social Security #: <b class="red">●</b></span></label>
+        <input #er_socialSecurity="ngModel" [(ngModel)]="representativeInformation.socialSecurity" name="socialSecurity" type="text" class="form-control" id="er_ssn" placeholder="xxx-xx-xxxx" required>
+        <div  *ngIf="f.submitted && !er_socialSecurity.valid"  style="color: red;">Social security number is required</div>
+      </div>
+      <div *ngIf="page!='TRUST'" class="form-group col-6">
+        <label for="verify-ssn"><span>Verify Social Security #: <b class="red">●</b></span></label>
+        <input #er_verifySocialSecurity="ngModel" [(ngModel)]="representativeInformation.verifySocialSecurity" name="verifySocialSecurity" type="text" class="form-control" id="verify-ssn" placeholder="xxx-xx-xxxx" required>
+        <div  *ngIf="f.submitted && !er_verifySocialSecurity.valid"  style="color: red;">Verify social security number is required</div>
+      </div>
+      <div class="form-group col-6">
+        <label for="ertitle"><span>Title: <b class="red">●</b></span></label>
+        <select *ngIf="page!='TRUST'"  #er_title="ngModel" [(ngModel)]="representativeInformation.title" name="title" type="text" class="form-control" id="ertitle" required>
+          <option value="" selected="selected">Select One</option>
+          <option value="Executor">Executor</option>
+          <option value="Administrator">Administrator</option>
+          <option value="Personal_Representative">Personal Representative</option>
+        </select>
+        <input *ngIf="page=='TRUST'" #er_title1="ngModel" [(ngModel)]="representativeInformation.title" name="title" type="text" class="form-control" id="ertitle_" required>
+        <div  *ngIf="f.submitted && !er_title1.valid"  style="color: red;">Title is required</div>
+      </div>
+
+    </div>
+
+    <div class="col-12" style="padding-left: 0px; padding-right: 0px;">
+
+      <div class="inner-title"  style="margin-left: -15px;">
+        {{pageHeadings[page].bussinessInfo}}:
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <!--<label for="first_name-sole-proprietor" class="col-6 span_1_of_2"><span>First Name: <b class="red">●</b></span> -->
+      <div class="row">
+        <div *ngIf="page=='NON_PROFIT_ORGANIZATION' || page=='CORPORATION' || page=='S_CORPORATION' || page=='PERSONAL_SERVICE_CORPORATION' || page=='CHURCH_CONTROLLED_ORGANIZATION'" class="form-group col-6">
+          <label for="bussinessName_"><span>{{pageHeadings[page].businessName}}: <b class="red">●</b></span></label>
+          <input #npbussinessName="ngModel" [(ngModel)]="bussinessInformation.name" name="bussinessName_" type="text" type="text" class="form-control" id="bussinessName_" required >
+          <div  *ngIf="f.submitted && !npbussinessName.valid"  style="color: red;">{{pageHeadings[page].businessName}} is required</div>
+        </div>
+        <div *ngIf="page=='PARTNERSHIP'" class="form-group col-6">
+          <label for="bussinessName_"><span>Legal Name of Partnership: <b class="red">●</b></span></label>
+          <input #npbussinessName="ngModel" [(ngModel)]="bussinessInformation.name" name="bussinessName_" type="text" type="text" class="form-control" id="bussinessName_" required >
+          <div  *ngIf="f.submitted && !npbussinessName.valid"  style="color: red;">Bussiness Name is required</div>
+        </div>
+
+        <div *ngIf="page=='NON_PROFIT_ORGANIZATION'" class="offset-6"></div>
+        <div class="form-group col-6">
+          <label for="trade-name"><span>Trade Name / Doing Business As: <b *ngIf="page=='PARTNERSHIP'" class="red">●</b> </span></label>
+          <input [(ngModel)]="bussinessInformation.tradeName" name="tradeName" type="text" type="text" class="form-control" id="trade-name" [required]="page=='PARTNERSHIP'" >
+        </div>
+        <div *ngIf="page=='PERSONAL_SERVICE_CORPORATION'" class="form-group col-6">
+          <label for="corporationCountry"><span>Personal Service Corporation Formed In: </span></label>
+          <select [(ngModel)]="bussinessInformation.corporationCountry" class="form-control date_select" id="corporationCountry" name="corporationCountry" >
+            <option value="">Please Select</option>
+            <option value="1">United States</option>
+            <option value="2">Foreign Country</option>
+          </select>
+        </div>
+        <div *ngIf="page=='CORPORATION' || page=='S_CORPORATION' || page=='PERSONAL_SERVICE_CORPORATION' " class="form-group col-6">
+          <label for="stateFormedIn"><span>State Formed In: <b class="red">●</b></span></label>
+          <select #stateFormedIn="ngModel" [(ngModel)]="bussinessInformation.stateFormedIn"  name="stateFormedIn" class="form-control" id="stateFormedIn">
+            <option value="" selected="selected">Select a State</option>
+            <option value="1">Alabama</option>
+            <option value="2">Alaska</option>
+            <option value="3">Arizona</option>
+            <option value="4">Arkansas</option>
+            <option value="5">California</option>
+            <option value="6">Colorado</option>
+            <option value="7">Connecticut</option>
+            <option value="8">Delaware</option>
+            <option value="9">District Of Columbia</option>
+            <option value="10">Florida</option>
+            <option value="11">Georgia</option>
+            <option value="12">Hawaii</option>
+            <option value="13">Idaho</option>
+            <option value="14">Illinois</option>
+            <option value="15">Indiana</option>
+            <option value="16">Iowa</option>
+            <option value="17">Kansas</option>
+            <option value="18">Kentucky</option>
+            <option value="19">Louisiana</option>
+            <option value="20">Maine</option>
+            <option value="21">Maryland</option>
+            <option value="22">Massachusetts</option>
+            <option value="23">Michigan</option>
+            <option value="24">Minnesota</option>
+            <option value="25">Mississippi</option>
+            <option value="26">Missouri</option>
+            <option value="27">Montana</option>
+            <option value="28">Nebraska</option>
+            <option value="29">Nevada</option>
+            <option value="30">New Hampshire</option>
+            <option value="31">New Jersey</option>
+            <option value="32">New Mexico</option>
+            <option value="33">New York</option>
+            <option value="34">North Carolina</option>
+            <option value="35">North Dakota</option>
+            <option value="36">Ohio</option>
+            <option value="37">Oklahoma</option>
+            <option value="38">Oregon</option>
+            <option value="39">Pennsylvania</option>
+            <option value="40">Puerto Rico</option>
+            <option value="41">Rhode Island</option>
+            <option value="42">South Carolina</option>
+            <option value="43">South Dakota</option>
+            <option value="44">Tennessee</option>
+            <option value="45">Texas</option>
+            <option value="46">Utah</option>
+            <option value="47">Vermont</option>
+            <option value="48">Virginia</option>
+            <option value="53">Virgin Islands</option>
+            <option value="49">Washington</option>
+            <option value="50">West Virginia</option>
+            <option value="51">Wisconsin</option>
+            <option value="52">Wyoming</option>
+          </select>
+          <div  *ngIf="f.submitted && !stateFormedIn.valid"  style="color: red;">State Formed In is required</div>
+        </div>
+        <div *ngIf="page=='CORPORATION' || page=='S_CORPORATION'" class="offset-6"></div>
+        <div *ngIf="page=='NON_PROFIT_ORGANIZATION'" class="form-group col-6">
+          <label for="state"><span>Type of Non-Profit: <b class="red">●</b></span></label>
+          <select #bussinessType="ngModel" [(ngModel)]="bussinessInformation.type"  name="type" class="form-control" id="type">
+            <option value="">Please Select</option>
+            <option value="1">Bankruptcy Estate(individual)</option>
+            <option value="2">Block/Tenant Association</option>
+            <option value="3">Church</option>
+            <option value="4">Community or Volunteer Group</option>
+            <option value="5">Employer/Fiscal Agent (under IRC Sec 3504)</option>
+            <option value="6">Employer Plan (401K, Money Purchase Plan, etc.)</option>
+            <option value="7">Farmers' Cooperative</option>
+            <option value="8">Government, Federal/Military</option>
+            <option value="9">Government, Indian Tribal Governments</option>
+            <option value="10">Government, State/Local</option>
+            <option value="11">Homeowners/Condo Association</option>
+            <option value="12">Household Employer</option>
+            <option value="13">IRA</option>
+            <option value="14">Memorial or Scholarship Fund</option>
+            <option value="15">National Guard</option>
+            <option value="16">Plan Administrator</option>
+            <option value="17">Political Organization</option>
+            <option value="18">PTA/PTO or School Organization</option>
+            <option value="19">REMIC</option>
+            <option value="20">Social or Savings Club</option>
+            <option value="21">Sports Teams (community)</option>
+            <option value="22">Withholding Agent</option>
+            <option value="23">Other Non-Profit/Tax-Exempt Organizations</option>
+          </select>
+          <div  *ngIf="f.submitted && !bussinessType.valid"  style="color: red;">Business Type is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="address"><span>Address: <b class="red">●</b></span></label>
+          <input #address="ngModel" [(ngModel)]="bussinessInformation.address" name="address" type="text" class="form-control" id="address"  required>
+          <div  *ngIf="f.submitted && !address.valid"  style="color: red;">Address is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="city"><span>City: <b class="red">●</b></span></label>
+          <input #city="ngModel" [(ngModel)]="bussinessInformation.city" name="city" type="text" class="form-control" id="city" required>
+          <div  *ngIf="f.submitted && !city.valid"  style="color: red;">City is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="state"><span>State: <b class="red">●</b></span></label>
+          <select #bussinessState="ngModel" [(ngModel)]="bussinessInformation.state"  name="state" class="form-control" id="state" required>
+            <option value="" selected="selected">Select a State</option>
+            <option value="1">Alabama</option>
+            <option value="2">Alaska</option>
+            <option value="3">Arizona</option>
+            <option value="4">Arkansas</option>
+            <option value="5">California</option>
+            <option value="6">Colorado</option>
+            <option value="7">Connecticut</option>
+            <option value="8">Delaware</option>
+            <option value="9">District Of Columbia</option>
+            <option value="10">Florida</option>
+            <option value="11">Georgia</option>
+            <option value="12">Hawaii</option>
+            <option value="13">Idaho</option>
+            <option value="14">Illinois</option>
+            <option value="15">Indiana</option>
+            <option value="16">Iowa</option>
+            <option value="17">Kansas</option>
+            <option value="18">Kentucky</option>
+            <option value="19">Louisiana</option>
+            <option value="20">Maine</option>
+            <option value="21">Maryland</option>
+            <option value="22">Massachusetts</option>
+            <option value="23">Michigan</option>
+            <option value="24">Minnesota</option>
+            <option value="25">Mississippi</option>
+            <option value="26">Missouri</option>
+            <option value="27">Montana</option>
+            <option value="28">Nebraska</option>
+            <option value="29">Nevada</option>
+            <option value="30">New Hampshire</option>
+            <option value="31">New Jersey</option>
+            <option value="32">New Mexico</option>
+            <option value="33">New York</option>
+            <option value="34">North Carolina</option>
+            <option value="35">North Dakota</option>
+            <option value="36">Ohio</option>
+            <option value="37">Oklahoma</option>
+            <option value="38">Oregon</option>
+            <option value="39">Pennsylvania</option>
+            <option value="40">Puerto Rico</option>
+            <option value="41">Rhode Island</option>
+            <option value="42">South Carolina</option>
+            <option value="43">South Dakota</option>
+            <option value="44">Tennessee</option>
+            <option value="45">Texas</option>
+            <option value="46">Utah</option>
+            <option value="47">Vermont</option>
+            <option value="48">Virginia</option>
+            <option value="53">Virgin Islands</option>
+            <option value="49">Washington</option>
+            <option value="50">West Virginia</option>
+            <option value="51">Wisconsin</option>
+            <option value="52">Wyoming</option>
+          </select>
+          <div  *ngIf="f.submitted && !bussinessState.valid"  style="color: red;">Business State is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="zip"><span>Zip: <b class="red">●</b></span></label>
+          <input #zip="ngModel" [(ngModel)]="bussinessInformation.zip"  name="zip" type="text" class="form-control" id="zip"  required>
+          <div  *ngIf="f.submitted && !zip.valid"  style="color: red;">City is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="county"><span>County: <b class="red">●</b></span></label>
+          <input #country="ngModel" [(ngModel)]="bussinessInformation.country"  name="country" type="text" class="form-control" id="county"  required>
+          <div  *ngIf="f.submitted && !country.valid"  style="color: red;">County is required</div>
+        </div>
+        <div class="form-group col-6">
+          <label for="phone"><span>Phone Number: <b class="red">●</b></span></label>
+          <input #phoneNumber="ngModel" [(ngModel)]="bussinessInformation.phoneNumber"  name="phoneNumber" type="text" class="form-control" id="phone" placeholder="xxx-xx-xxxx" required>
+          <div  *ngIf="f.submitted && !phoneNumber.valid"  style="color: red;">Phone number is required</div>
+        </div>
+        <div *ngIf="page=='LIMITED_LIABILITY_COMPANY' || page=='CORPORATION' || page=='S_CORPORATION' || page=='PERSONAL_SERVICE_CORPORATION' || page=='TRUST'" class="form-group col-12">
+          <br>
+          <p class="form-check-label">
+            <input class="form-check-input" name="existingBussiness"  [(ngModel)]="bussinessInformation.existingBussiness" type="checkbox"> Is this entity owned by another business?
+          </p>
+        </div>
+
+        <div *ngIf="page=='PARTNERSHIP'" class="form-group col-12">
+          <br>
+          <p class="form-check-label">
+            <input class="form-check-input" name="jointVenture"  [(ngModel)]="jointVenture" type="checkbox"> Is this a Joint Venture? (check if yes)
+          </p>
+        </div>
+        <div *ngIf="bussinessInformation.existingBussiness" class="form-group container">
+          <div class="row">
+
+            <div class="form-group col-6">
+              <label for="address-oth"><span>OWNING COMPANY NAME: <b class="red">●</b></span></label>
+              <input #bussinessName="ngModel" type="text" name="bussinessName" class="form-control" [(ngModel)]="bussinessInformation.bussinessName" id ="bussinessName"  required>
+              <div  *ngIf="f.submitted && !bussinessName.valid"  style="color: red;">Bussiness name is required</div>
+            </div>
+            <div class="form-group col-6">
+              <label for="address-oth"><span>OWNING COMPANY EIN: <b class="red">●</b></span></label>
+              <input #bussinessEIN="ngModel" type="text" name="bussinessEIN" class="form-control" [(ngModel)]="otherBussinessMailingInformation.bussinessEIN" id ="bussinessEIN"  required>
+              <div  *ngIf="f.submitted && !bussinessEIN.valid"  style="color: red;">OWNING COMPANY EIN is required</div>
+            </div>
+
+          </div>
+        </div>
+        <div class="form-group col-12">
+          <br>
+          <p class="form-check-label">
+            <input class="form-check-input" name="isOtherBusinessAddress"  [(ngModel)]="bussinessInformation.isOtherBusinessAddress" type="checkbox"> Mailing address different than Business address?
+          </p>
+        </div>
+        <div *ngIf="page=='ESTATE_DECEASED_INDIVIDUAL' " class="form-group col-6">
+          <label for="stateFormedIn"><span>State/Territory where articles of organization are (or will be) filed: <b class="red">●</b></span></label>
+          <select [(ngModel)]="bussinessInformation.stateFormedIn"  name="stateFormedIn" class="form-control" id="stateFormedIn">
+            <option value="" selected="selected">Select a State</option>
+            <option value="1">Alabama</option>
+            <option value="2">Alaska</option>
+            <option value="3">Arizona</option>
+            <option value="4">Arkansas</option>
+            <option value="5">California</option>
+            <option value="6">Colorado</option>
+            <option value="7">Connecticut</option>
+            <option value="8">Delaware</option>
+            <option value="9">District Of Columbia</option>
+            <option value="10">Florida</option>
+            <option value="11">Georgia</option>
+            <option value="12">Hawaii</option>
+            <option value="13">Idaho</option>
+            <option value="14">Illinois</option>
+            <option value="15">Indiana</option>
+            <option value="16">Iowa</option>
+            <option value="17">Kansas</option>
+            <option value="18">Kentucky</option>
+            <option value="19">Louisiana</option>
+            <option value="20">Maine</option>
+            <option value="21">Maryland</option>
+            <option value="22">Massachusetts</option>
+            <option value="23">Michigan</option>
+            <option value="24">Minnesota</option>
+            <option value="25">Mississippi</option>
+            <option value="26">Missouri</option>
+            <option value="27">Montana</option>
+            <option value="28">Nebraska</option>
+            <option value="29">Nevada</option>
+            <option value="30">New Hampshire</option>
+            <option value="31">New Jersey</option>
+            <option value="32">New Mexico</option>
+            <option value="33">New York</option>
+            <option value="34">North Carolina</option>
+            <option value="35">North Dakota</option>
+            <option value="36">Ohio</option>
+            <option value="37">Oklahoma</option>
+            <option value="38">Oregon</option>
+            <option value="39">Pennsylvania</option>
+            <option value="40">Puerto Rico</option>
+            <option value="41">Rhode Island</option>
+            <option value="42">South Carolina</option>
+            <option value="43">South Dakota</option>
+            <option value="44">Tennessee</option>
+            <option value="45">Texas</option>
+            <option value="46">Utah</option>
+            <option value="47">Vermont</option>
+            <option value="48">Virginia</option>
+            <option value="53">Virgin Islands</option>
+            <option value="49">Washington</option>
+            <option value="50">West Virginia</option>
+            <option value="51">Wisconsin</option>
+            <option value="52">Wyoming</option>
+          </select>
+        </div>
+        <div *ngIf="page=='CHURCH_CONTROLLED_ORGANIZATION'" class="form-group col-6">
+          <label for="corporationCountry"><span>Organization Formed In: </span></label>
+          <select [(ngModel)]="bussinessInformation.corporationCountry" class="form-control date_select" id="corporationCountry" name="corporationCountry" >
+            <option value="">Please Select</option>
+            <option value="1">United States</option>
+            <option value="2">Foreign Country</option>
+          </select>
+        </div>
+        <div class="container">
+        <div *ngIf="bussinessInformation.isOtherBusinessAddress" class="form-group container">
+          <div class="row">
+          <div class="inner-title"  style="height: 30px; line-height: 30px; font-size: 13px;">Other mailing address:</div>
+          <div class="form-group col-6">
+            <label for="address-oth"><span>Address: <b class="red">●</b></span></label>
+            <input #othAddress="ngModel" type="text" name="address-oth" class="form-control" [(ngModel)]="otherBussinessMailingInformation.address" id ="address-oth"  required>
+            <div  *ngIf="f.submitted && !othAddress.valid"  style="color: red;">Address is required</div>
+          </div>
+          <div class="form-group col-6">
+            <label for="city-oth"><span>City: <b class="red">●</b></span></label>
+            <input #othCity="ngModel" type="text" [(ngModel)]="otherBussinessMailingInformation.city" class="form-control" id="city-oth" name="city-oth" required>
+            <div  *ngIf="f.submitted && !othCity.valid"  style="color: red;">City is required</div>
+          </div>
+          <div class="form-group col-6">
+            <label for="state-oth"><span>State: <b class="red">●</b></span></label>
+            <select #otherState="ngModel" [(ngModel)]="otherBussinessMailingInformation.state" name="state-oth" class="form-control" id="state-oth">
+              <option value="" selected="selected">Select a State</option>
+              <option value="1">Alabama</option>
+              <option value="2">Alaska</option>
+              <option value="3">Arizona</option>
+              <option value="4">Arkansas</option>
+              <option value="5">California</option>
+              <option value="6">Colorado</option>
+              <option value="7">Connecticut</option>
+              <option value="8">Delaware</option>
+              <option value="9">District Of Columbia</option>
+              <option value="10">Florida</option>
+              <option value="11">Georgia</option>
+              <option value="12">Hawaii</option>
+              <option value="13">Idaho</option>
+              <option value="14">Illinois</option>
+              <option value="15">Indiana</option>
+              <option value="16">Iowa</option>
+              <option value="17">Kansas</option>
+              <option value="18">Kentucky</option>
+              <option value="19">Louisiana</option>
+              <option value="20">Maine</option>
+              <option value="21">Maryland</option>
+              <option value="22">Massachusetts</option>
+              <option value="23">Michigan</option>
+              <option value="24">Minnesota</option>
+              <option value="25">Mississippi</option>
+              <option value="26">Missouri</option>
+              <option value="27">Montana</option>
+              <option value="28">Nebraska</option>
+              <option value="29">Nevada</option>
+              <option value="30">New Hampshire</option>
+              <option value="31">New Jersey</option>
+              <option value="32">New Mexico</option>
+              <option value="33">New York</option>
+              <option value="34">North Carolina</option>
+              <option value="35">North Dakota</option>
+              <option value="36">Ohio</option>
+              <option value="37">Oklahoma</option>
+              <option value="38">Oregon</option>
+              <option value="39">Pennsylvania</option>
+              <option value="40">Puerto Rico</option>
+              <option value="41">Rhode Island</option>
+              <option value="42">South Carolina</option>
+              <option value="43">South Dakota</option>
+              <option value="44">Tennessee</option>
+              <option value="45">Texas</option>
+              <option value="46">Utah</option>
+              <option value="47">Vermont</option>
+              <option value="48">Virginia</option>
+              <option value="53">Virgin Islands</option>
+              <option value="49">Washington</option>
+              <option value="50">West Virginia</option>
+              <option value="51">Wisconsin</option>
+              <option value="52">Wyoming</option>
+            </select>
+            <div  *ngIf="f.submitted && !otherState.valid"  style="color: red;">Other Business State is required</div>
+          </div>
+          <div class="form-group col-6">
+            <label for="zip-oth"><span>Zip: <b class="red">●</b></span></label>
+            <input #othZip="ngModel" type="text" name="zip-oth" [(ngModel)]="otherBussinessMailingInformation.zip" class="form-control" id="zip-oth"  required>
+            <div  *ngIf="f.submitted && !othZip.valid"  style="color: red;">Zip is required</div>
+          </div>
+          <div class="form-group col-6">
+            <label for="county-oth"><span>County: <b class="red">●</b></span></label>
+            <input #othCounty="ngModel" type="text" name="county-oth" [(ngModel)]="otherBussinessMailingInformation.country" class="form-control" id="county-oth"  required>
+            <div  *ngIf="f.submitted && !othCounty.valid"  style="color: red;">County is required</div>
+          </div>
+          </div>
+        </div>
+        </div>
+        <div class="col-12">
+
+          <div class="inner-title" style="margin-left: -15px;" >
+            DATES:
+          </div>
+
+        </div>
+
+        <div class="row" >
+          <!--<label for="first_name-sole-proprietor" class="col-6 span_1_of_2"><span>First Name: <b class="red">●</b></span> -->
+          <div class="container">
+            <div class="row">
+            <div class="container" style="margin: 0px;">
+
+              <label class="col-7"  for="month"><span>{{pageHeadings[page].dateFounded}}: <b class="red">●</b></span></label>
+              <label class="col-4"><span>Closing Month of Accounting Year: <b class="red">●</b></span></label>
+            </div>
+            <div class="form-group col-4">
+
+              <select #entityStartMonth_="ngModel" [(ngModel)]="entityStartMonth" name="entityStartMonth" class="form-control date_select" id="month" required>
+                <option value="01" >January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <div  *ngIf="f.submitted && !entityStartMonth_.valid"  style="color: red;">Entity Start Month is required</div>
+            </div>
+            <div class="form-group col-3">
+
+              <select #entityStartYear_="ngModel" [(ngModel)]="entityStartYear" id="year" name="entityStartYear" class="form-control date_select" required>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="2009">2009</option>
+                <option value="2008">2008</option>
+                <option value="2007">2007</option>
+                <option value="2006">2006</option>
+                <option value="2005">2005</option>
+                <option value="2004">2004</option>
+                <option value="2003">2003</option>
+                <option value="2002">2002</option>
+                <option value="2001">2001</option>
+                <option value="2000">2000</option>
+                <option value="1999">1999</option>
+                <option value="1998">1998</option>
+                <option value="1997">1997</option>
+                <option value="1996">1996</option>
+                <option value="1995">1995</option>
+                <option value="1994">1994</option>
+                <option value="1993">1993</option>
+                <option value="1992">1992</option>
+                <option value="1991">1991</option>
+              </select>
+              <div  *ngIf="f.submitted && !entityStartYear_.valid"  style="color: red;">Entity Start Year is required</div>
+            </div>
+            <div class="form-group col-5">
+
+              <select #entityClosingMonth_="ngModel" [(ngModel)]="entityClosingMonth" name="end-month" id="end-month" class="form-control date_select" required>
+                <option value="1">January</option>
+                <option value="2">February</option>
+                <option value="3">March</option>
+                <option value="4">April</option>
+                <option value="5">May</option>
+                <option value="6">June</option>
+                <option value="7">July</option>
+                <option value="8">August</option>
+                <option value="9">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+              <div  *ngIf="f.submitted && !entityClosingMonth_.valid"  style="color: red;">Closing Month of Accounting Year is required</div>
+            </div>
+          </div>
+          </div>
+          </div>
+      </div>
+    </div>
+    <div class="col-12" style="padding-left: 0px;padding-right: 0px;">
+
+      <div class="inner-title"  style="margin-left: -32px;">
+        ADDITIONAL INFORMATION:
+        <span class="gray mrgR10 fright font12 offset-col-8"></span>
+      </div>
+
+    </div>
+
+
+      <!--<label for="first_name-sole-proprietor" class="col-6 span_1_of_2"><span>First Name: <b class="red">●</b></span> -->
+      <div class="row">
+
+        <div *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'" class="form-group col-6">
+          <label for="reason_for_applying"><span>Reason for Applying: <b class="red">●</b></span></label>
+          <select #reasonForApplying_="ngModel" [(ngModel)]="additionalInformation.reasonForApplying" class="form-control date_select" id="reason_for_applying" name="reason_for_applying" required>
+            <option value="">Please Select</option>
+            <option value="1">Started New Business</option>
+            <option value="2">Hired New Employee(s)</option>
+            <option value="5">Banking Purposes</option>
+            <option value="6">Changed Type of Organization</option>
+            <option value="7">Purchased Business</option>
+          </select>
+          <div  *ngIf="f.submitted && !reasonForApplying_.valid"  style="color: red;">Reason For Applying is required</div>
+        </div>
+        <div  *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'"  class="form-group col-6">
+          <label for="primary_activity"><span>Primary Activity: <b class="red">●</b></span></label>
+          <select #primaryActivity_="ngModel" [(ngModel)]="additionalInformation.primaryActivity" name="primary_activity" id="primary_activity" class="form-control date_select" required>
+            <option value="">Please Select</option>
+            <option value="8">Accommodation</option>
+            <option value="1">Construction</option>
+            <option value="6">Finance</option>
+            <option value="108">Food Service</option>
+            <option value="7">Health Care</option>
+            <option value="106">Insurance</option>
+            <option value="4">Manufacturing</option>
+            <option value="2">Real Estate</option>
+            <option value="3">Rental &amp; Leasing</option>
+            <option value="11">Retail</option>
+            <option value="107">Social Assistance</option>
+            <option value="5">Transportation</option>
+            <option value="105">Warehousing</option>
+            <option value="10">Wholesale</option>
+            <option value="12">Other</option>
+          </select>
+          <div  *ngIf="f.submitted && !primaryActivity_.valid"  style="color: red;">Primary Activity is required</div>
+        </div>
+        <div *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'" class="form-group col-12">
+          <label for="prod_service"><span>Specific Products/Services: <b class="red">●</b></span></label>
+          <input #specificProducts="ngModel" [(ngModel)]="additionalInformation.specificProducts"  name="specificProducts" type="text" class="form-control" id="prod_service"  required>
+          <div  *ngIf="f.submitted && !specificProducts.valid"  style="color: red;">County is required</div>
+        </div>
+        <div *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'" class="form-group col-12">
+          <label  for="state_reg"><span>State/Territory where articles of organization are (or will be) filed: <b class="red">●</b></span></label>
+          <select #territory="ngModel" [(ngModel)]="additionalInformation.territory" name="state_reg" class="form-control date_select" id="state_reg" required>
+            <option value="" selected="selected">Select a State</option>
+            <option value="1">Alabama</option>
+            <option value="2">Alaska</option>
+            <option value="3">Arizona</option>
+            <option value="4">Arkansas</option>
+            <option value="5">California</option>
+            <option value="6">Colorado</option>
+            <option value="7">Connecticut</option>
+            <option value="8">Delaware</option>
+            <option value="9">District Of Columbia</option>
+            <option value="10">Florida</option>
+            <option value="11">Georgia</option>
+            <option value="12">Hawaii</option>
+            <option value="13">Idaho</option>
+            <option value="14">Illinois</option>
+            <option value="15">Indiana</option>
+            <option value="16">Iowa</option>
+            <option value="17">Kansas</option>
+            <option value="18">Kentucky</option>
+            <option value="19">Louisiana</option>
+            <option value="20">Maine</option>
+            <option value="21">Maryland</option>
+            <option value="22">Massachusetts</option>
+            <option value="23">Michigan</option>
+            <option value="24">Minnesota</option>
+            <option value="25">Mississippi</option>
+            <option value="26">Missouri</option>
+            <option value="27">Montana</option>
+            <option value="28">Nebraska</option>
+            <option value="29">Nevada</option>
+            <option value="30">New Hampshire</option>
+            <option value="31">New Jersey</option>
+            <option value="32">New Mexico</option>
+            <option value="33">New York</option>
+            <option value="34">North Carolina</option>
+            <option value="35">North Dakota</option>
+            <option value="36">Ohio</option>
+            <option value="37">Oklahoma</option>
+            <option value="38">Oregon</option>
+            <option value="39">Pennsylvania</option>
+            <option value="40">Puerto Rico</option>
+            <option value="41">Rhode Island</option>
+            <option value="42">South Carolina</option>
+            <option value="43">South Dakota</option>
+            <option value="44">Tennessee</option>
+            <option value="45">Texas</option>
+            <option value="46">Utah</option>
+            <option value="47">Vermont</option>
+            <option value="48">Virginia</option>
+            <option value="53">Virgin Islands</option>
+            <option value="49">Washington</option>
+            <option value="50">West Virginia</option>
+            <option value="51">Wisconsin</option>
+            <option value="52">Wyoming</option>
+          </select>
+          <div  *ngIf="f.submitted && !territory.valid"  style="color: red;">Territory is required</div>
+        </div>
+        <div *ngIf="page=='ESTATE_DECEASED_INDIVIDUAL' || page=='TRUST'" class="form-group row">
+          <div class="form-group col-12">
+            <br>
+            <p class="form-check-label">
+              &nbsp;&nbsp;&nbsp;  <input class="form-check-input" name="estateUnder"  [(ngModel)]="additionalInformation.estateUnder" type="checkbox"> Trust filing as an Estate under Sec. 645 (check if yes)
+            </p>
+          </div>
+        </div>
+        <div *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'" class="form-group col-12">
+          <label ><span>Does your business own a highway motor vehicle with a taxable gross weight of 55,000 pounds or more?</span></label>
+          <br>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.highwayMotorVehicle" class="form-check-input" type="radio" name="vehicle_55000" [value]="true"> &nbsp;Yes
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.highwayMotorVehicle" class="form-check-input" type="radio" name="vehicle_55000"  [value]="false" [checked]="isChecked"> &nbsp;No
+            </label>
+          </div>
+        </div>
+        <div *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'" class="form-group col-12">
+          <label ><span>Does your business involve gambling/wagering?</span></label>
+          <br>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.gambling" class="form-check-input" type="radio" name="gambling"  [value]="true"> &nbsp;Yes
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.gambling" class="form-check-input" type="radio" name="gambling"  [value]="false" [checked]="isChecked"> &nbsp;No
+            </label>
+          </div>
+        </div>
+        <div *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'" class="form-group col-12">
+          <label ><span>Does your business need to file Form 720 (Quarterly Federal Excise Tax Return)?</span></label>
+          <br>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.form720" class="form-check-input" type="radio" name="form_720"  [value]="true"> &nbsp;Yes
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.form720" class="form-check-input" type="radio" name="form_720"  [value]="false" [checked]="isChecked" checked="checked"> &nbsp;No
+            </label>
+          </div>
+        </div>
+        <div *ngIf="page!='ESTATE_DECEASED_INDIVIDUAL' && page!='TRUST'" class="form-group col-12">
+          <label ><span>Does your business sell or manufacture alcohol, tobacco, or firearms?</span></label>
+          <br>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.manufactureAlcohol" class="form-check-input" type="radio" name="selling"  [value]="true"> &nbsp;Yes
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.manufactureAlcohol" class="form-check-input" type="radio" name="selling"  [value]="false" [checked]="isChecked"> &nbsp;No
+            </label>
+          </div>
+        </div>
+        <div class="form-group col-12">
+          <label ><span>Do you have, or do you expect to have, any employees who will receive Forms W-2 in the next 12 months?</span></label>
+          <br>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.receiveFormsW2" class="form-check-input" type="radio" name="receiveFormsW2"  [value]="true" > &nbsp;Yes
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.receiveFormsW2" class="form-check-input" type="radio" name="receiveFormsW2"  [value]="false" [checked]="isChecked"> &nbsp;No
+            </label>
+          </div>
+        </div>
+        <div *ngIf="additionalInformation.receiveFormsW2 == 'yes'" class="form-group row">
+          <div class="form-group col-12">
+            <br>
+            <p class="form-check-label">
+              <input class="form-check-input" name="expectEmploymentTaxLiability"  [(ngModel)]="additionalInformation.expectEmploymentTaxLiability" type="checkbox"> Do you expect your employment tax liability to be $1,000 or less in a full calendar year (January-December)?
+            </p>
+          </div>
+          <div class="form-group col-12">
+            <label for="expectedNumberEmployees"><span>Number of OR expected number of Agricultural Employees: </span></label>
+            <input [(ngModel)]="additionalInformation.expectedNumberEmployees"  name="expectedNumberEmployees" type="text" class="form-control" id="expectedNumberEmployees"  required>
+          </div>
+          <div class="form-group col-12">
+            <label for="expectedHouseHoldEmployees"><span>Number of OR expected number of Household Employees:</span></label>
+            <input [(ngModel)]="additionalInformation.expectedHouseHoldEmployees"  name="expectedHouseHoldEmployees" type="text" class="form-control" id="expectedHouseHoldEmployees"  required>
+          </div>
+          <div class="form-group col-12">
+            <label for="otherEmployees"><span>SNumber of OR expected number of Other Employees: </span></label>
+            <input [(ngModel)]="additionalInformation.otherEmployees"  name="otherEmployees" type="text" class="form-control" id="otherEmployees"  required>
+          </div>
+          <label class="col-12" for="first-name"><span>First date wages were/will be paid: <b class="red">●</b></span></label>
+
+          <div class="form-group col-6">
+
+            <select #wageMonth_="ngModel" [(ngModel)]="additionalInformation.wageMonth" name="add-month" id="add-month" class="form-control date_select" required>
+              <option  value="" selected="selected">Select a Month</option>
+              <option value="1">January</option>
+              <option value="2">February</option>
+              <option value="3">March</option>
+              <option value="4">April</option>
+              <option value="5">May</option>
+              <option value="6">June</option>
+              <option value="7">July</option>
+              <option value="8">August</option>
+              <option value="9">September</option>
+              <option value="10">October</option>
+              <option value="11">November</option>
+              <option value="12">December</option>
+            </select>
+            <div  *ngIf="f.submitted && !wageMonth_.valid"  style="color: red;">First wage month is required</div>
+          </div>
+          <div class="form-group col-6">
+
+            <select #wageYear_="ngModel" [(ngModel)]="additionalInformation.wageYear" name="wageYear" id="Wageyear" class="form-control date_select" required>
+              <option value="" selected="selected">Select year</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+              <option value="2013">2013</option>
+              <option value="2012">2012</option>
+              <option value="2011">2011</option>
+              <option value="2010">2010</option>
+              <option value="2009">2009</option>
+              <option value="2008">2008</option>
+              <option value="2007">2007</option>
+              <option value="2006">2006</option>
+              <option value="2005">2005</option>
+              <option value="2004">2004</option>
+              <option value="2003">2003</option>
+              <option value="2002">2002</option>
+              <option value="2001">2001</option>
+              <option value="2000">2000</option>
+              <option value="1999">1999</option>
+              <option value="1998">1998</option>
+              <option value="1997">1997</option>
+              <option value="1996">1996</option>
+              <option value="1995">1995</option>
+              <option value="1994">1994</option>
+              <option value="1993">1993</option>
+              <option value="1992">1992</option>
+              <option value="1991">1991</option>
+            </select>
+            <div  *ngIf="f.submitted && !wageYear_.valid"  style="color: red;">First wage year is required</div>
+        </div>
+
+        </div>
+        <div class="form-group col-12">
+          <label ><span>Has the applicant entity ever applied for and received an EIN? </span></label>
+          <br>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.receiveApplyForEIN" class="form-check-input" type="radio" name="receiveApplyForEIN"  [value]="true" > &nbsp;Yes
+
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input [(ngModel)]="additionalInformation.receiveApplyForEIN" class="form-check-input" type="radio" name="receiveApplyForEIN" [checked]="isChecked"  [value]="false" > &nbsp;No
+            </label>
+          </div>
+        </div>
+        <div *ngIf="additionalInformation.receiveApplyForEIN == 'yes'" class="form-group container">
+          <div class="row">
+          <div class="form-group col-6">
+            <label for="previousEINFirst2digits"><span>Previous EIN number, first 2 digits:</span></label>
+            <input type="text" class="form-control" [(ngModel)]="additionalInformation.previousEINFirst2digits" id="previousEINFirst2digits" placeholder="xx" name="previousEINFirst2digits" required>
+          </div>
+          <div class="form-group col-6">
+            <label for="previousEINLast7digits"><span>Previous EIN number, last 7 digits: </span></label>
+            <input type="text" class="form-control" [(ngModel)]="additionalInformation.previousEINLast7digits" id="previousEINLast7digits" name="previousEINLast7digits"  placeholder="xxxxxxx" >
+          </div>
+        </div>
+        </div>
+      </div>
+
+
+    <div class="col-12" style="padding-left: 0px;padding-right: 0px;">
+
+      <div class="inner-title"  style="margin-left: -32px;">
+        CUSTOMER AGREEMENT:
+        <span class="gray mrgR10 fright font12 offset-col-8"></span>
+      </div>
+
+    </div>
+
+    <div class="container">
+      <!--<label for="first_name-sole-proprietor" class="col-6 span_1_of_2"><span>First Name: <b class="red">●</b></span> -->
+      <div class="row">
+        <div class="form-group col-12">
+          <br>
+          <p class="form-check-label">
+            <input class="form-check-input" name="agreement"  [(ngModel)]="agreement" type="checkbox"> By checking this box, (i) I represent and warrant that all of the information provided above is accurate and complete; (ii) I agree that I have carefully read and agree to be bound by the Terms of Use (see below) and (iii) I have read and understand that I am hereby authorizing EIN Tax ID Filing Service as a "Third Party Designee" as described in the instructions to Form SS-4 to apply to the IRS for the Employer Identification Number of the person or entity listed above, answer any questions on my behalf or the behalf of the entity listed above about the completion of Form SS-4, and to receive and deliver to me the Employer Identification Number for me or the entity listed above.<b class="red">●</b>
+          </p>
+        </div>
+
+      </div>
+    </div>
+    <span class="line20 mrgT10"></span>
+    <div class="col-12">
+
+      <div class="inner-title" >
+        EIN/TAX ID RECIPIENT INFORMATION:
+        <span class="gray mrgR10 fright font12 offset-col-8"></span>
+      </div>
+
+    </div>
+    <div class="container">
+    <div class="row">
+      <div class="col-12"><p>*Please provide the information of the person who you want to receive the EIN Number via e-mail. If we need additional information for your application, this will be the person who will be contacted.</p></div>
+      <div class="form-group col-6">
+        <label for="receiptNameEIN"><span>EIN Recipient Name: <b class="red">●</b></span></label>
+        <input #receiptNameEIN="ngModel" type="text" name="receiptNameEIN" class="form-control" [(ngModel)]="taxIdRecipientInformation.receiptNameEIN" id ="receiptNameEIN"  required>
+        <div  *ngIf="f.submitted && !receiptNameEIN.valid"  style="color: red;">Name is required</div>
+      </div>
+      <div class="form-group col-6">
+        <label for="receipientEmailEIN"><span>EIN Recipient E-mail: <b class="red">●</b></span></label>
+        <input #receipientEmailEIN="ngModel" type="text" [(ngModel)]="taxIdRecipientInformation.receipientEmailEIN" class="form-control" id="receipientEmailEIN" name="receipientEmailEIN" required>
+        <div  *ngIf="f.submitted && !receipientEmailEIN.valid"  style="color: red;">Email is required</div>
+      </div>
+      <div class="form-group col-6">
+        <label for="receipientPhoneEIN"><span>EIN Recipient Phone Number: <b class="red">●</b></span></label>
+        <input #receipientPhoneEIN="ngModel" type="text" name="receipientPhoneEIN" placeholder="xxx-xx-xxxx" [(ngModel)]="taxIdRecipientInformation.receipientPhoneEIN" class="form-control" id="receipientPhoneEIN"  required>
+        <div  *ngIf="f.submitted && !receipientPhoneEIN.valid"  style="color: red;">Phone number is required</div>
+      </div>
+      <div class="form-group col-6">
+        <label for="confirmReceipientEmailEIN"><span>Confirm EIN Recipient E-mail: <b class="red">●</b></span></label>
+        <input #confirmReceipientEmailEIN="ngModel" type="text" name="confirmReceipientEmailEIN" [(ngModel)]="taxIdRecipientInformation.confirmReceipientEmailEIN" class="form-control" id="confirmReceipientEmailEIN"  required>
+        <div  *ngIf="f.submitted && !confirmReceipientEmailEIN.valid"  style="color: red;">Confirm email is required</div>
+      </div>
+      <div class="col-12"><p>*Please review that you have submitted the correct e-mail address where you would like to receive your EIN. Upon completion of your application, Easy Doc Filing will e-mail the EIN number to this e-mail address.</p></div>
+    </div>
+  </div>
+    <div class="col-12">
+        <div  *ngIf="f.submitted && !f.form.valid"  style="color: red;text-align:center;"><b>Kindly Fill in all Mandatory Fields with <b class="red">●</b> Indicator</b></div>
+        <div  *ngIf="successMessage != ''"  style="color: #00e600;text-align:center;"><b>{{successMessage}}</b></div>
+        <div  *ngIf="errorMessage != ''"  style="color: red;text-align:center;"><b>{{errorMessage}}</b></div>
+        <br>
+        <button type="submit" class="gray-button" id="submit" name="submit" > Submit Application</button>
+
+    </div>
+      </div>
+
+  </form>
+</div>
