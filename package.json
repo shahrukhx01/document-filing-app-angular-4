@@ -28,7 +28,7 @@
     "@angular/upgrade": "4.0.0",
     "chart.js": "2.9.4",
     "core-js": "2.4.1",
-    "moment": "2.18.1",
+    "moment": "2.29.2",
     "angular2-http-file-upload": "1.0.6",
     "ng2-bootstrap": "1.4.2",
     "ng2-charts": "1.5.0",
